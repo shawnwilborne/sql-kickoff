@@ -1,7 +1,7 @@
 // Builds a multi-page PDF of the cheatsheet using jsPDF.
 // jsPDF is dynamically imported so it only loads when the user clicks Download.
 
-import { COURSE_MAP, INTRO, PDF_FILENAME, PILLARS, SECTIONS } from '../data/cheatsheet';
+import { COURSE_MAP, INTRO, PDF_FILENAME, SECTIONS } from '../data/cheatsheet';
 
 type RGB = [number, number, number];
 
@@ -10,6 +10,18 @@ const INK: RGB = [30, 36, 29];
 const MUTED: RGB = [90, 107, 99];
 const ORANGE: RGB = [180, 75, 0];
 const CODEBG: RGB = [15, 31, 23];
+
+/**
+ * Make text safe for jsPDF's built-in (WinAnsi) fonts: convert arrows to ASCII
+ * and strip emoji / variation selectors that would otherwise print as garbage.
+ * Em dashes and curly quotes are kept — WinAnsi renders those fine.
+ */
+function pdfSafe(text: string): string {
+  return text
+    .replace(/[←→➡]/g, (m) => (m === '←' ? '<-' : '->'))
+    .replace(/[︀-️‍]/g, '') // variation selectors & zero-width joiner
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}]/gu, ''); // emoji & symbols
+}
 
 export async function downloadCheatsheetPdf(): Promise<void> {
   const { jsPDF } = await import('jspdf');
@@ -66,7 +78,7 @@ export async function downloadCheatsheetPdf(): Promise<void> {
     doc.setTextColor(...color);
     const lineH = size * lineFactor;
     // Preserve intentional line breaks in examples, wrap each segment to width.
-    for (const segment of text.split('\n')) {
+    for (const segment of pdfSafe(text).split('\n')) {
       const lines = doc.splitTextToSize(segment, contentW - indent) as string[];
       for (const line of lines) {
         ensure(lineH);
@@ -81,7 +93,9 @@ export async function downloadCheatsheetPdf(): Promise<void> {
     doc.setFont('courier', 'normal');
     doc.setFontSize(9);
     const lineH = 9 * 1.4;
-    const padded = text.split('\n').flatMap((seg) => doc.splitTextToSize(seg, contentW - 20) as string[]);
+    const padded = pdfSafe(text)
+      .split('\n')
+      .flatMap((seg) => doc.splitTextToSize(seg, contentW - 20) as string[]);
     const blockH = padded.length * lineH + 12;
     ensure(blockH);
     doc.setFillColor(...CODEBG);
@@ -117,16 +131,6 @@ export async function downloadCheatsheetPdf(): Promise<void> {
   y = 132;
 
   write(INTRO, { color: MUTED, size: 10.5, gapAfter: 10 });
-
-  // ---- Three pillars ----
-  write('How every concept is framed', { size: 13, style: 'bold', color: GREEN, gapAfter: 4 });
-  for (const p of PILLARS) {
-    write(`${p.emoji}  ${p.name} — ${p.blurb}`, { size: 10.5, gapAfter: 3 });
-  }
-  write(
-    'Plus career connections to real roles: Data Analyst, Technical Program Manager, Product Manager, Business Analyst, and AI Operations.',
-    { color: MUTED, size: 9.5, gapAfter: 8 },
-  );
   rule();
 
   // ---- Course map ----

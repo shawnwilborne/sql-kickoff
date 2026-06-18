@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { COURSE_MAP, INTRO, PILLARS, SECTIONS } from '../data/cheatsheet';
+import { COURSE_MAP, INTRO, SECTIONS } from '../data/cheatsheet';
 import { downloadCheatsheetPdf } from '../util/cheatsheetPdf';
 
 function scrollToSection(id: string) {
@@ -46,18 +46,6 @@ export function CheatsheetModal({ onClose }: { onClose: () => void }) {
 
         <div className="cheatsheet-body">
           <p className="cs-intro">{INTRO}</p>
-
-          <div className="pillars">
-            {PILLARS.map((p) => (
-              <div key={p.name} className="pillar">
-                <span className="pillar-emoji">{p.emoji}</span>
-                <div>
-                  <strong>{p.name}</strong>
-                  <span className="muted small"> — {p.blurb}</span>
-                </div>
-              </div>
-            ))}
-          </div>
 
           <div className="cs-nav">
             <button type="button" className="cs-chip" onClick={() => scrollToSection('course-map')}>
