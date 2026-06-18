@@ -1,0 +1,42 @@
+src/db/sqlite.ts
+  s_10ab0d1c9d7476::t_810fb0c6312b26 27-28
+src/db/pglite.ts
+  s_10ab0d1c9d7476::t_fe141b42d67d51 25-28
+src/components/ChallengesTab.tsx
+  s_10ab0d1c9d7476::t_09d3142e541d2a 3,11
+src/components/SampleDataBanner.tsx
+  s_10ab0d1c9d7476::t_6bc8e52256efc1 1-36
+src/styles.css
+  s_10ab0d1c9d7476::t_cde3198942b8f1 417-440
+  s_10ab0d1c9d7476::t_325f816d078255 511-514
+src/components/QueryConsole.tsx
+  s_10ab0d1c9d7476::t_62ce665d993ca4 16
+  s_10ab0d1c9d7476::t_5385f209303219 8-11
+src/data/cheatsheet.ts
+  s_10ab0d1c9d7476::t_34b2814dd87b9b 44-46
+src/state/leaderboard.ts
+  s_10ab0d1c9d7476::t_1d96e371a05e5b 15-16,21,25
+src/components/KickoffMode.tsx
+  s_10ab0d1c9d7476::t_07e9b8213f4f2c 5
+  s_10ab0d1c9d7476::t_67182d3a577bb5 182
+src/components/LeaderboardTab.tsx
+  s_10ab0d1c9d7476::t_11409f262b9b87 36-42
+src/components/CheatsheetModal.tsx
+  s_10ab0d1c9d7476::t_b26aa10e5b8232 125-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "2809937fe059d9f172a08e454b54cd8158ed3a83",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
