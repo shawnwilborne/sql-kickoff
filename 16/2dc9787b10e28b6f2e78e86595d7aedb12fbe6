@@ -1,0 +1,25 @@
+src/util/cheatsheetPdf.ts
+  s_10ab0d1c9d7476::t_116c56f976a4d3 96-98
+  s_10ab0d1c9d7476::t_80270d7855281b 14-21,24-25
+  s_10ab0d1c9d7476::t_f01ea2ebca905d 81
+  s_10ab0d1c9d7476::t_a85ff347f8f10e 4
+  s_10ab0d1c9d7476::t_f7f088ff2f4430 22-23
+src/components/CheatsheetModal.tsx
+  s_10ab0d1c9d7476::t_6c9fd2b549c70f 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "162dc9787b10e28b6f2e78e86595d7aedb12fbe6",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
