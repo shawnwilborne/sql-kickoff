@@ -22,9 +22,10 @@ export class PgliteEngine implements DbEngine {
 
   static async create(): Promise<PgliteEngine> {
     const db = new PGlite();
-    const engine = new PgliteEngine(db);
-    await engine.loadSample();
-    return engine;
+    // Force initialization (PGlite is lazy) but start with an empty database;
+    // the sample dataset loads on demand.
+    await db.query('SELECT 1;');
+    return new PgliteEngine(db);
   }
 
   async run(sql: string): Promise<QueryResult> {

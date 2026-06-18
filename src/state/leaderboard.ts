@@ -12,57 +12,17 @@ export interface LeaderboardEntry {
   lastActive: string; // ISO date (YYYY-MM-DD)
 }
 
-const KEY = 'sqlkickoff.leaderboard.v1';
-
-// A few demo classmates so the board isn't lonely on first run. They are clearly
-// marked "(demo)" and exist only to give a new student some targets to pass.
-const DEMO_ENTRIES: LeaderboardEntry[] = [
-  {
-    name: 'Maya (demo)',
-    xp: 1450,
-    level: 4,
-    levelTitle: 'Data Detective',
-    badges: 6,
-    challengesCompleted: 8,
-    sqliteChallenges: 5,
-    postgresChallenges: 3,
-    lastActive: '2026-06-16',
-  },
-  {
-    name: 'Diego (demo)',
-    xp: 920,
-    level: 3,
-    levelTitle: 'Query Builder',
-    badges: 4,
-    challengesCompleted: 5,
-    sqliteChallenges: 4,
-    postgresChallenges: 1,
-    lastActive: '2026-06-15',
-  },
-  {
-    name: 'Priya (demo)',
-    xp: 480,
-    level: 2,
-    levelTitle: 'Table Explorer',
-    badges: 3,
-    challengesCompleted: 3,
-    sqliteChallenges: 2,
-    postgresChallenges: 1,
-    lastActive: '2026-06-14',
-  },
-];
+// Bumped to v2 so existing browsers drop the old seeded demo classmates.
+const KEY = 'sqlkickoff.leaderboard.v2';
 
 export function loadLeaderboard(): LeaderboardEntry[] {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) {
-      localStorage.setItem(KEY, JSON.stringify(DEMO_ENTRIES));
-      return [...DEMO_ENTRIES];
-    }
+    if (!raw) return [];
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? (parsed as LeaderboardEntry[]) : [];
   } catch {
-    return [...DEMO_ENTRIES];
+    return [];
   }
 }
 

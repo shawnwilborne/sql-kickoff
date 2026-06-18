@@ -5,12 +5,15 @@ import { useProgress } from '../state/progress';
 import { ResultsTable } from './ResultsTable';
 import { CsvUpload } from './CsvUpload';
 
-const DEFAULT_SQL = 'SELECT * FROM members;';
+const DEFAULT_SQL = `-- Your database starts empty.
+-- Click "Load / reset sample data" below to create the members & workouts tables,
+-- or upload your own CSV. Then try:  SELECT * FROM members;
+SELECT 'Welcome to SQL Kickoff!' AS message;`;
 
 function SchemaHint() {
   return (
     <details className="schema-hint">
-      <summary>📋 Tables &amp; columns</summary>
+      <summary>📋 Tables &amp; columns (after loading sample data)</summary>
       <div className="schema-grid">
         <div>
           <strong>members</strong>

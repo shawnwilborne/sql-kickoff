@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { STARTER_CHALLENGES, PRO_CHALLENGES } from '../game/challenges';
 import { KICKOFF_ADVANCE_CALLS, KICKOFF_BLOCK_CALL, KICKOFF_STAGES } from '../game/feedback';
 import { ChallengeRunner } from './ChallengeRunner';
+import { SampleDataBanner } from './SampleDataBanner';
 import { useProgress } from '../state/progress';
 import type { RunOutcome } from '../state/useRunQuery';
 
@@ -178,6 +179,7 @@ export function KickoffMode() {
 
   return (
     <div className="kickoff-mode">
+      <SampleDataBanner />
       <div className="kickoff-header">
         <h2 className="section-title">⚽ SQL Kickoff Mode</h2>
         <div className="segmented" role="group" aria-label="Kickoff sub-mode">

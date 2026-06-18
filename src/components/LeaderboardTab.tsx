@@ -33,6 +33,13 @@ export function LeaderboardTab() {
             </tr>
           </thead>
           <tbody>
+            {entries.length === 0 && (
+              <tr>
+                <td colSpan={9} className="muted lb-empty">
+                  No scores yet — run a query or complete a challenge to get on the board!
+                </td>
+              </tr>
+            )}
             {entries.map((e, i) => (
               <tr key={e.name} className={e.name === progress.name ? 'me' : ''}>
                 <td>{i + 1}</td>

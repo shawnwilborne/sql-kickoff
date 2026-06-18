@@ -122,8 +122,8 @@ export function CheatsheetModal({ onClose }: { onClose: () => void }) {
           ))}
 
           <p className="muted small cs-footer-note">
-            Tip: paste any example into the Practice tab and press Run. SQLite and PostgreSQL share
-            nearly all of this syntax.
+            Tip: load the sample data first (Practice or Challenges tab), then paste any example into
+            the Practice editor and press Run. SQLite and PostgreSQL share nearly all of this syntax.
           </p>
         </div>
       </div>

@@ -41,8 +41,9 @@ export interface Section {
 
 export const INTRO =
   'A friendly, plain-English reference for everything in SQL Kickoff. Every example ' +
-  'runs against the sample data (the members and workouts tables), so you can paste ' +
-  'any of them straight into the Practice tab and press Run.';
+  'uses the sample dataset (the members and workouts tables). The database starts empty, ' +
+  'so load the sample data once (Practice or Challenges tab), then paste any example into ' +
+  'the Practice editor and press Run.';
 
 export const PILLARS: Pillar[] = [
   {

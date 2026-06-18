@@ -24,9 +24,8 @@ export class SqliteEngine implements DbEngine {
 
   static async create(): Promise<SqliteEngine> {
     const SQL = await getSqlJs();
-    const engine = new SqliteEngine(new SQL.Database());
-    await engine.loadSample();
-    return engine;
+    // Start with an empty database; the sample dataset loads on demand.
+    return new SqliteEngine(new SQL.Database());
   }
 
   async run(sql: string): Promise<QueryResult> {

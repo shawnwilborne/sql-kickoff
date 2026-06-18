@@ -1,5 +1,6 @@
 import { STARTER_CHALLENGES, PRO_CHALLENGES, TOTAL_CHALLENGES } from '../game/challenges';
 import { ChallengeRunner } from './ChallengeRunner';
+import { SampleDataBanner } from './SampleDataBanner';
 import { useProgress } from '../state/progress';
 
 export function ChallengesTab() {
@@ -7,6 +8,7 @@ export function ChallengesTab() {
 
   return (
     <div className="challenges-tab">
+      <SampleDataBanner />
       <p className="muted">
         Completed {progress.completedChallenges.length} / {TOTAL_CHALLENGES} challenges. Each one is a
         real business request — write SQL to satisfy it.
