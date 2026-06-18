@@ -1,0 +1,36 @@
+src/components/CheatsheetModal.tsx
+  s_10ab0d1c9d7476::t_cf4d4946c0200b 1-144
+src/data/cheatsheet.ts
+  s_10ab0d1c9d7476::t_e28dd1c90bdc3a 1-596
+src/util/cheatsheetPdf.ts
+  s_10ab0d1c9d7476::t_7e6e6c5d9bb05b 1-162
+src/App.tsx
+  s_10ab0d1c9d7476::t_b1c68da5e91d70 12
+  s_10ab0d1c9d7476::t_9edf81bb713d73 98-99
+  s_10ab0d1c9d7476::t_9891a14964a8d2 42-50
+  s_10ab0d1c9d7476::t_19cfba12b9cb9f 28
+package.json
+  s_10ab0d1c9d7476::t_107a1ae9a3dde6 15
+package-lock.json
+  s_10ab0d1c9d7476::t_54aacea27a7743 12,244-251,1114-1119,1169-1188,1234-1244,1265-1283,1290-1309,1333-1338,1392-1396,1420-1432,1462-1478,1532-1537,1572-1580,1613-1627,1703-1729,1779-1785
+src/styles.css
+  s_10ab0d1c9d7476::t_3e6cf810230edd 769-772
+  s_10ab0d1c9d7476::t_3f6441708a6051 734-768,773-954
+  s_10ab0d1c9d7476::t_ca49c56c3de57c 113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "05b018cda1b9ed82e6b0a26cdbd4db1ef740a78a",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
