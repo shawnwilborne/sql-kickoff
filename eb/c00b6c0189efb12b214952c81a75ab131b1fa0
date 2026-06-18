@@ -1,0 +1,19 @@
+src/styles.css
+  s_10ab0d1c9d7476::t_8e4b0d8c9af936 804-807
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "ebc00b6c0189efb12b214952c81a75ab131b1fa0",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
