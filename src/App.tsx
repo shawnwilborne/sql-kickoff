@@ -9,6 +9,7 @@ import { QueryConsole } from './components/QueryConsole';
 import { ChallengesTab } from './components/ChallengesTab';
 import { KickoffMode } from './components/KickoffMode';
 import { LeaderboardTab } from './components/LeaderboardTab';
+import { CheatsheetModal } from './components/CheatsheetModal';
 import { ToastStack } from './components/ToastStack';
 
 type Tab = 'practice' | 'challenges' | 'kickoff' | 'leaderboard';
@@ -24,6 +25,7 @@ function Shell() {
   const { progress } = useProgress();
   const { status, error } = useDatabase();
   const [tab, setTab] = useState<Tab>('practice');
+  const [helpOpen, setHelpOpen] = useState(false);
 
   if (!progress.name) {
     return (
@@ -37,6 +39,15 @@ function Shell() {
   return (
     <div className="app">
       <header className="app-header">
+        <button
+          type="button"
+          className="help-btn"
+          onClick={() => setHelpOpen(true)}
+          aria-label="Open SQL cheatsheet and help"
+          title="SQL cheatsheet & help"
+        >
+          ?
+        </button>
         <div className="brand">
           <span className="logo">⚽</span>
           <div>
@@ -83,6 +94,8 @@ function Shell() {
           locally in this browser only.
         </span>
       </footer>
+
+      {helpOpen && <CheatsheetModal onClose={() => setHelpOpen(false)} />}
 
       <ToastStack />
     </div>
