@@ -1,0 +1,35 @@
+src/state/progress.tsx
+  s_10ab0d1c9d7476::t_271e22607da55b 23-24
+  s_10ab0d1c9d7476::t_c992707d057cae 207-242,244
+  s_10ab0d1c9d7476::t_2921b40e3cde56 281-282,284-322
+src/state/auth.tsx
+  s_10ab0d1c9d7476::t_cdfc43770bebf9 1-75
+src/vite-env.d.ts
+  s_10ab0d1c9d7476::t_e4539a1b53dea2 8-15
+src/lib/supabase.ts
+  s_10ab0d1c9d7476::t_a38e9e625f1cdf 1-33
+src/styles.css
+  s_10ab0d1c9d7476::t_d79fe81574d22f 740,744-762,782-813
+src/components/LoginScreen.tsx
+  s_10ab0d1c9d7476::t_f1c055571617ad 1-51
+src/components/LeaderboardTab.tsx
+  s_10ab0d1c9d7476::t_9deeed2d0d1180 2-3,6-15,18-20,23-43,49-50,52-54,71,73-74,78-81,84-107
+src/App.tsx
+  s_10ab0d1c9d7476::t_a7f4468e85bd22 3,5,26,32-36,39,48-61,104-105,119-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "b4c8553479f166be39b15645dc87d7872272a64f",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
