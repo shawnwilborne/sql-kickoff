@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { DatabaseProvider, useDatabase } from './db/DatabaseContext';
+import { AuthProvider, useAuth } from './state/auth';
 import { ProgressProvider, useProgress } from './state/progress';
-import { NamePrompt } from './components/NamePrompt';
+import { LoginScreen } from './components/LoginScreen';
 import { DatabaseSelector } from './components/DatabaseSelector';
 import { ProgressPanel } from './components/ProgressPanel';
 import { BadgesBar } from './components/BadgesBar';
@@ -22,15 +23,20 @@ const TABS: { id: Tab; label: string }[] = [
 ];
 
 function Shell() {
+  const { user, loading: authLoading, signOut } = useAuth();
   const { progress } = useProgress();
   const { status, error } = useDatabase();
   const [tab, setTab] = useState<Tab>('practice');
   const [helpOpen, setHelpOpen] = useState(false);
 
-  if (!progress.name) {
+  if (authLoading) {
+    return <div className="auth-splash">⚽ Loading SQL Kickoff…</div>;
+  }
+
+  if (!user) {
     return (
       <>
-        <NamePrompt />
+        <LoginScreen />
         <ToastStack />
       </>
     );
@@ -39,15 +45,20 @@ function Shell() {
   return (
     <div className="app">
       <header className="app-header">
-        <button
-          type="button"
-          className="help-btn"
-          onClick={() => setHelpOpen(true)}
-          aria-label="Open SQL cheatsheet and help"
-          title="SQL cheatsheet & help"
-        >
-          ?
-        </button>
+        <div className="header-actions">
+          <button type="button" className="signout-btn" onClick={() => void signOut()} title="Sign out">
+            Sign out
+          </button>
+          <button
+            type="button"
+            className="help-btn"
+            onClick={() => setHelpOpen(true)}
+            aria-label="Open SQL cheatsheet and help"
+            title="SQL cheatsheet & help"
+          >
+            ?
+          </button>
+        </div>
         <div className="brand">
           <span className="logo">⚽</span>
           <div>
@@ -90,8 +101,8 @@ function Shell() {
 
       <footer className="app-footer">
         <span>
-          SQL Kickoff runs entirely in your browser — no backend, no login. Progress is stored
-          locally in this browser only.
+          SQL practice runs privately in your browser. Your XP, badges, and the leaderboard sync to
+          Supabase. Signed in as {progress.name || user.email}.
         </span>
       </footer>
 
@@ -105,9 +116,11 @@ function Shell() {
 export default function App() {
   return (
     <DatabaseProvider>
-      <ProgressProvider>
-        <Shell />
-      </ProgressProvider>
+      <AuthProvider>
+        <ProgressProvider>
+          <Shell />
+        </ProgressProvider>
+      </AuthProvider>
     </DatabaseProvider>
   );
 }

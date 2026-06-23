@@ -20,7 +20,8 @@ import {
   type LevelInfo,
 } from '../game/rules';
 import { TOTAL_CHALLENGES } from '../game/challenges';
-import { upsertEntry } from './leaderboard';
+import { supabase, type ProfileRow } from '../lib/supabase';
+import { useAuth, displayNameFromUser } from './auth';
 
 export interface Progress {
   name: string;
@@ -203,7 +204,44 @@ interface ProgressContextValue {
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
 
+function rowToProgress(r: ProfileRow): Progress {
+  return {
+    name: r.name,
+    xp: r.xp,
+    awardedConcepts: (r.awarded_concepts ?? []) as ConceptKey[],
+    badges: r.badges ?? [],
+    completedChallenges: r.completed_challenges ?? [],
+    sqliteChallenges: r.sqlite_challenges,
+    postgresChallenges: r.postgres_challenges,
+    firstQueryDone: r.first_query_done,
+    sampleLoaded: r.sample_loaded,
+    lastRunErrored: false,
+    lastActive: r.last_active,
+  };
+}
+
+async function upsertProfile(userId: string, p: Progress): Promise<void> {
+  await supabase.from('profiles').upsert(
+    {
+      user_id: userId,
+      name: p.name,
+      xp: p.xp,
+      awarded_concepts: p.awardedConcepts,
+      badges: p.badges,
+      completed_challenges: p.completedChallenges,
+      sqlite_challenges: p.sqliteChallenges,
+      postgres_challenges: p.postgresChallenges,
+      first_query_done: p.firstQueryDone,
+      sample_loaded: p.sampleLoaded,
+      last_active: p.lastActive,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: 'user_id' },
+  );
+}
+
 export function ProgressProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [progress, setProgress] = useState<Progress>(loadProgress);
   const progressRef = useRef(progress);
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -240,22 +278,48 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     }
   }, [progress]);
 
-  // Mirror the current student into the leaderboard.
+  // On sign-in, hydrate progress from the cloud (or create the row from local).
+  const hydratedUserRef = useRef<string | null>(null);
   useEffect(() => {
-    if (!progress.name) return;
-    const info = levelForXp(progress.xp);
-    upsertEntry({
-      name: progress.name,
-      xp: progress.xp,
-      level: info.level,
-      levelTitle: info.title,
-      badges: progress.badges.length,
-      challengesCompleted: progress.completedChallenges.length,
-      sqliteChallenges: progress.sqliteChallenges,
-      postgresChallenges: progress.postgresChallenges,
-      lastActive: progress.lastActive,
-    });
-  }, [progress]);
+    if (!user) {
+      hydratedUserRef.current = null;
+      return;
+    }
+    if (hydratedUserRef.current === user.id) return;
+    hydratedUserRef.current = user.id;
+    let cancelled = false;
+    void (async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (cancelled) return;
+      if (data) {
+        const cloud = rowToProgress(data as ProfileRow);
+        progressRef.current = cloud;
+        setProgress(cloud);
+      } else {
+        // First sign-in: seed the cloud row from current progress + Google name.
+        const seeded: Progress = { ...progressRef.current, name: displayNameFromUser(user) };
+        progressRef.current = seeded;
+        setProgress(seeded);
+        await upsertProfile(user.id, seeded);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  // Push progress changes to the cloud (debounced) while signed in.
+  useEffect(() => {
+    if (!user) return;
+    const t = setTimeout(() => {
+      void upsertProfile(user.id, progress);
+    }, 800);
+    return () => clearTimeout(t);
+  }, [progress, user]);
 
   const level = useMemo(() => levelForXp(progress.xp), [progress.xp]);
 
