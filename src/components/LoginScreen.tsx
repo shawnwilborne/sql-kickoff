@@ -45,6 +45,17 @@ export function LoginScreen() {
         <p className="muted small">
           Your progress syncs across devices. SQL practice still runs privately in your browser.
         </p>
+        <p className="muted small login-legal">
+          By continuing you agree to our{' '}
+          <a href="https://www.lidvizion.ai/legal/terms" target="_blank" rel="noopener noreferrer">
+            Terms
+          </a>{' '}
+          and{' '}
+          <a href="https://www.lidvizion.ai/legal/privacy" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>
+          .
+        </p>
       </div>
     </div>
   );

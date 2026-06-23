@@ -104,6 +104,15 @@ function Shell() {
           SQL practice runs privately in your browser. Your XP, badges, and the leaderboard sync to
           Supabase. Signed in as {progress.name || user.email}.
         </span>
+        <nav className="legal-links">
+          <a href="https://www.lidvizion.ai/legal/terms" target="_blank" rel="noopener noreferrer">
+            Terms
+          </a>
+          <span className="legal-sep" aria-hidden="true">·</span>
+          <a href="https://www.lidvizion.ai/legal/privacy" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>
+        </nav>
       </footer>
 
       {helpOpen && <CheatsheetModal onClose={() => setHelpOpen(false)} />}

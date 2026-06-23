@@ -1019,6 +1019,30 @@ textarea:focus {
   color: var(--muted);
   font-size: 0.82rem;
 }
+.legal-links {
+  margin-top: 0.45rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+.legal-links a {
+  color: var(--pitch-dark);
+  text-decoration: underline;
+}
+.legal-links a:hover {
+  color: var(--accent);
+}
+.legal-sep {
+  color: var(--muted);
+}
+.login-legal {
+  margin-top: 0.6rem;
+}
+.login-legal a {
+  color: var(--pitch-dark);
+  text-decoration: underline;
+}
 
 @media (max-width: 640px) {
   .app-header {
