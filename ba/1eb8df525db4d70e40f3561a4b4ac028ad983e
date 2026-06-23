@@ -1,0 +1,23 @@
+src/components/LoginScreen.tsx
+  s_10ab0d1c9d7476::t_8ed785057e3fcc 48-58
+src/App.tsx
+  s_10ab0d1c9d7476::t_7831c7e4e10405 107-115
+src/styles.css
+  s_10ab0d1c9d7476::t_f3aba0a915801a 1022-1045
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "ba1eb8df525db4d70e40f3561a4b4ac028ad983e",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
