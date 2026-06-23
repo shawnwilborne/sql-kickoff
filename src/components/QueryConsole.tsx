@@ -6,27 +6,9 @@ import { ResultsTable } from './ResultsTable';
 import { CsvUpload } from './CsvUpload';
 
 const DEFAULT_SQL = `-- Your database starts empty.
--- Click "Load / reset sample data" below to create the members & workouts tables,
--- or upload your own CSV. Then try:  SELECT * FROM members;
+-- Use "Load / reset sample data" below to load practice tables, or upload a CSV.
+-- Then write SELECT queries against your data.
 SELECT 'Welcome to SQL Kickoff!' AS message;`;
-
-function SchemaHint() {
-  return (
-    <details className="schema-hint">
-      <summary>📋 Tables &amp; columns (after loading sample data)</summary>
-      <div className="schema-grid">
-        <div>
-          <strong>members</strong>
-          <span>id, name, city, email, tier, score, join_date</span>
-        </div>
-        <div>
-          <strong>workouts</strong>
-          <span>id, member_id, type, duration_min, calories, workout_date</span>
-        </div>
-      </div>
-    </details>
-  );
-}
 
 export function QueryConsole() {
   const runAndScore = useRunQuery();
@@ -91,7 +73,6 @@ export function QueryConsole() {
       )}
       {outcome?.result && <ResultsTable result={outcome.result} />}
       <CsvUpload />
-      <SchemaHint />
     </div>
   );
 }
