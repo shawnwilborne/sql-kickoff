@@ -316,6 +316,28 @@ textarea:focus {
   outline-color: var(--pitch-light);
 }
 
+/* CodeMirror SQL editor (autocomplete) */
+.cm-sql-editor {
+  border: 1px solid #16341f;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+.cm-sql-editor .cm-editor {
+  border-radius: 10px;
+}
+.cm-sql-editor .cm-editor.cm-focused {
+  outline: 2px solid var(--pitch-light);
+  outline-offset: 0;
+}
+.cm-sql-editor .cm-scroller {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  line-height: 1.5;
+}
+.cm-sql-editor .cm-placeholder {
+  color: #6f8a78;
+}
+
 .feedback {
   display: flex;
   flex-direction: column;
@@ -366,11 +388,23 @@ textarea:focus {
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
 }
+/* Keep data cells compact (full value on hover) so column headers aren't
+   squeezed/cut off; headers themselves never truncate. */
+.result-table td {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .result-table th {
   background: #eef3f0;
   font-weight: 700;
   position: sticky;
   top: 0;
+}
+.result-table th.col-head {
+  cursor: help;
+  text-decoration: underline dotted rgba(22, 36, 29, 0.3);
+  text-underline-offset: 3px;
 }
 .result-table tbody tr:nth-child(even) {
   background: #fafcfb;

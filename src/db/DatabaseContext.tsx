@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { DbEngine, EngineMode, QueryResult } from './types';
+import type { DbEngine, EngineMode, QueryResult, SchemaMap } from './types';
 import { SqliteEngine } from './sqlite';
 import { PgliteEngine } from './pglite';
 
@@ -17,6 +17,8 @@ interface DatabaseContextValue {
   mode: EngineMode;
   status: DbStatus;
   error: string | null;
+  /** Current tables -> columns, for editor autocomplete. */
+  schema: SchemaMap;
   run: (sql: string) => Promise<QueryResult>;
   switchMode: (mode: EngineMode) => Promise<void>;
   reloadSample: () => Promise<void>;
@@ -42,6 +44,17 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<EngineMode>('sqlite');
   const [status, setStatus] = useState<DbStatus>('loading');
   const [error, setError] = useState<string | null>(null);
+  const [schema, setSchema] = useState<SchemaMap>({});
+
+  const refreshSchema = useCallback(async () => {
+    const engine = engineRef.current;
+    if (!engine) return;
+    try {
+      setSchema(await engine.getSchema());
+    } catch {
+      // Ignore introspection errors; autocomplete just won't have tables.
+    }
+  }, []);
 
   // Initialize the default engine once on mount.
   useEffect(() => {
@@ -55,6 +68,7 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
         }
         engineRef.current = engine;
         setStatus('ready');
+        void refreshSchema();
       } catch (e) {
         if (!cancelled) {
           setError(e instanceof Error ? e.message : String(e));
@@ -80,25 +94,33 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
         engineRef.current = engine;
         setMode(next);
         setStatus('ready');
+        void refreshSchema();
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
         setStatus('error');
       }
     },
-    [mode],
+    [mode, refreshSchema],
   );
 
-  const run = useCallback(async (sql: string) => {
-    const engine = engineRef.current;
-    if (!engine) throw new Error('The database is still warming up. Try again in a moment.');
-    return engine.run(sql);
-  }, []);
+  const run = useCallback(
+    async (sql: string) => {
+      const engine = engineRef.current;
+      if (!engine) throw new Error('The database is still warming up. Try again in a moment.');
+      const result = await engine.run(sql);
+      // If the query changed the schema, refresh autocomplete data.
+      if (/\b(create|drop|alter)\b/i.test(sql)) void refreshSchema();
+      return result;
+    },
+    [refreshSchema],
+  );
 
   const reloadSample = useCallback(async () => {
     const engine = engineRef.current;
     if (!engine) throw new Error('The database is still warming up. Try again in a moment.');
     await engine.loadSample();
-  }, []);
+    await refreshSchema();
+  }, [refreshSchema]);
 
   const loadCsv = useCallback(
     async (tableName: string, columns: string[], rows: string[][]) => {
@@ -115,13 +137,14 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
         sql += `\nINSERT INTO ${table} (${cols}) VALUES\n  ${values};`;
       }
       await engine.run(sql);
+      await refreshSchema();
     },
-    [],
+    [refreshSchema],
   );
 
   return (
     <DatabaseContext.Provider
-      value={{ mode, status, error, run, switchMode, reloadSample, loadCsv }}
+      value={{ mode, status, error, schema, run, switchMode, reloadSample, loadCsv }}
     >
       {children}
     </DatabaseContext.Provider>

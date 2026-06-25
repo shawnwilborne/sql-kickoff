@@ -4,6 +4,7 @@ import { useProgress } from '../state/progress';
 import { useDatabase } from '../db/DatabaseContext';
 import type { Challenge } from '../game/challenges';
 import { ResultsTable } from './ResultsTable';
+import { SqlEditor } from './SqlEditor';
 
 interface Props {
   challenge: Challenge;
@@ -22,7 +23,7 @@ export function ChallengeRunner({
 }: Props) {
   const runAndScore = useRunQuery();
   const { progress, useHint } = useProgress();
-  const { status } = useDatabase();
+  const { status, schema, mode } = useDatabase();
   const [sql, setSql] = useState('');
   const [outcome, setOutcome] = useState<RunOutcome | null>(null);
   const [busy, setBusy] = useState(false);
@@ -57,14 +58,14 @@ export function ChallengeRunner({
       <p className="ch-concept">
         🎯 <strong>{challenge.requiredConcept}</strong> · 🏆 {challenge.xp} XP
       </p>
-      <textarea
-        className="sql-editor"
+      <SqlEditor
         value={sql}
+        onChange={setSql}
+        onSubmit={run}
+        schema={schema}
+        mode={mode}
+        minHeight="70px"
         placeholder="Write your SQL here…"
-        onChange={(e) => setSql(e.target.value)}
-        spellCheck={false}
-        rows={3}
-        aria-label={`SQL editor for ${challenge.title}`}
       />
       <div className="ch-actions">
         <button type="button" onClick={run} disabled={busy || status !== 'ready'}>

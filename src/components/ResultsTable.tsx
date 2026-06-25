@@ -1,10 +1,15 @@
 import type { ReactNode } from 'react';
 import type { QueryResult } from '../db/types';
 
-function formatCell(value: unknown): ReactNode {
-  if (value === null || value === undefined) return <span className="null">NULL</span>;
+function formatValue(value: unknown): string {
+  if (value === null || value === undefined) return 'NULL';
   if (value instanceof Date) return value.toISOString().slice(0, 10);
   return String(value);
+}
+
+function renderCell(value: unknown): ReactNode {
+  if (value === null || value === undefined) return <span className="null">NULL</span>;
+  return formatValue(value);
 }
 
 export function ResultsTable({ result }: { result: QueryResult }) {
@@ -17,16 +22,23 @@ export function ResultsTable({ result }: { result: QueryResult }) {
       <table className="result-table">
         <thead>
           <tr>
-            {result.columns.map((c, i) => (
-              <th key={i}>{c}</th>
-            ))}
+            {result.columns.map((col, i) => {
+              const type = result.columnTypes[i] ?? '';
+              return (
+                <th key={i} title={type ? `${col} — ${type}` : col} className="col-head">
+                  {col}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
           {result.rows.map((row, ri) => (
             <tr key={ri}>
               {row.map((cell, ci) => (
-                <td key={ci}>{formatCell(cell)}</td>
+                <td key={ci} title={formatValue(cell)}>
+                  {renderCell(cell)}
+                </td>
               ))}
             </tr>
           ))}

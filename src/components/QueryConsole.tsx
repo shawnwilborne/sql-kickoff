@@ -1,19 +1,18 @@
-import { useState, type KeyboardEvent } from 'react';
+import { useState } from 'react';
 import { useRunQuery, type RunOutcome } from '../state/useRunQuery';
 import { useDatabase } from '../db/DatabaseContext';
-import { useProgress } from '../state/progress';
 import { ResultsTable } from './ResultsTable';
 import { CsvUpload } from './CsvUpload';
+import { SqlEditor } from './SqlEditor';
 
 const DEFAULT_SQL = `-- Your database starts empty.
--- Use "Load / reset sample data" below to load practice tables, or upload a CSV.
--- Then write SELECT queries against your data.
+-- Upload a CSV below, or load the sample data from the Challenges tab, then
+-- query it. Tip: start typing for table, column, and keyword suggestions.
 SELECT 'Welcome to SQL Kickoff!' AS message;`;
 
 export function QueryConsole() {
   const runAndScore = useRunQuery();
-  const { reloadSample, status } = useDatabase();
-  const { recordSampleLoad, pushToast } = useProgress();
+  const { status, schema, mode } = useDatabase();
   const [sql, setSql] = useState(DEFAULT_SQL);
   const [outcome, setOutcome] = useState<RunOutcome | null>(null);
   const [busy, setBusy] = useState(false);
@@ -24,26 +23,6 @@ export function QueryConsole() {
     setBusy(false);
   };
 
-  const onSample = async () => {
-    try {
-      await reloadSample();
-      recordSampleLoad();
-      pushToast({ kind: 'success', text: 'Sample dataset loaded. Tables: members, workouts.' });
-    } catch (e) {
-      pushToast({
-        kind: 'error',
-        text: 'Could not load sample: ' + (e instanceof Error ? e.message : String(e)),
-      });
-    }
-  };
-
-  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-      e.preventDefault();
-      void run();
-    }
-  };
-
   return (
     <div className="console">
       <div className="console-toolbar">
@@ -51,19 +30,15 @@ export function QueryConsole() {
           ▶ Run query
         </button>
         <span className="muted small kbd-hint">⌘/Ctrl + Enter</span>
-        <div className="spacer" />
-        <button type="button" className="secondary" onClick={onSample} disabled={status !== 'ready'}>
-          ↺ Load / reset sample data
-        </button>
       </div>
-      <textarea
-        className="sql-editor"
+      <SqlEditor
         value={sql}
-        onChange={(e) => setSql(e.target.value)}
-        onKeyDown={onKeyDown}
-        spellCheck={false}
-        rows={6}
-        aria-label="SQL editor"
+        onChange={setSql}
+        onSubmit={run}
+        schema={schema}
+        mode={mode}
+        minHeight="140px"
+        placeholder="Write SQL here — start typing for suggestions…"
       />
       {outcome && (
         <div className={`feedback feedback-${outcome.status}`}>
