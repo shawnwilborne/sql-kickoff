@@ -1045,6 +1045,118 @@ textarea:focus {
   border-top: 1px solid var(--border);
 }
 
+/* ---------------- History ---------------- */
+
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.history-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+.history-item {
+  padding: 0;
+  overflow: hidden;
+}
+.history-row-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  color: var(--ink);
+  border: none;
+  border-radius: 0;
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  font-weight: 400;
+}
+.history-row-head:hover:not(:disabled) {
+  background: #f4fbf7;
+  filter: none;
+}
+.hist-badge {
+  flex-shrink: 0;
+  text-transform: uppercase;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+}
+.hist-success {
+  background: #e9f8ef;
+  color: var(--pitch-dark);
+  border: 1px solid #b6e6c8;
+}
+.hist-invalid {
+  background: var(--accent-soft);
+  color: #8a4b00;
+  border: 1px solid #ffd9b3;
+}
+.hist-error {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid #f3b6ae;
+}
+.hist-query {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.85rem;
+  color: #244534;
+}
+.hist-meta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.hist-engine {
+  font-weight: 600;
+}
+.hist-caret {
+  color: var(--pitch);
+  font-weight: 700;
+}
+.history-detail {
+  padding: 0 0.85rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.hist-query-full {
+  margin: 0;
+  background: #0f1f17;
+  color: #e7f6ec;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.84rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+@media (max-width: 640px) {
+  .hist-meta {
+    display: none;
+  }
+}
+
 /* ---------------- Footer ---------------- */
 
 .app-footer {

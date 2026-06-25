@@ -3,6 +3,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import { sql, SQLite, PostgreSQL, type SQLNamespace } from '@codemirror/lang-sql';
 import { keymap, EditorView } from '@codemirror/view';
 import { Prec } from '@codemirror/state';
+import { editorTheme, editorHighlight } from './editorTheme';
 import type { EngineMode, SchemaMap } from '../db/types';
 
 interface Props {
@@ -32,6 +33,7 @@ export function SqlEditor({
       // Schema enables table + column completion; keywords complete by default.
       sql({ dialect, schema: schema as SQLNamespace | undefined, upperCaseKeywords: false }),
       EditorView.lineWrapping,
+      editorHighlight,
     ];
     if (onSubmit) {
       exts.unshift(
@@ -57,7 +59,7 @@ export function SqlEditor({
       value={value}
       onChange={onChange}
       extensions={extensions}
-      theme="dark"
+      theme={editorTheme}
       minHeight={minHeight}
       placeholder={placeholder}
       basicSetup={{

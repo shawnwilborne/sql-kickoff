@@ -10,16 +10,18 @@ import { QueryConsole } from './components/QueryConsole';
 import { ChallengesTab } from './components/ChallengesTab';
 import { KickoffMode } from './components/KickoffMode';
 import { LeaderboardTab } from './components/LeaderboardTab';
+import { HistoryTab } from './components/HistoryTab';
 import { CheatsheetModal } from './components/CheatsheetModal';
 import { ToastStack } from './components/ToastStack';
 
-type Tab = 'practice' | 'challenges' | 'kickoff' | 'leaderboard';
+type Tab = 'practice' | 'challenges' | 'kickoff' | 'leaderboard' | 'history';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'practice', label: '🧪 Practice' },
   { id: 'challenges', label: '🎯 Challenges' },
   { id: 'kickoff', label: '⚽ SQL Kickoff' },
   { id: 'leaderboard', label: '🏆 Leaderboard' },
+  { id: 'history', label: '🕓 History' },
 ];
 
 function Shell() {
@@ -97,6 +99,7 @@ function Shell() {
         {tab === 'challenges' && <ChallengesTab />}
         {tab === 'kickoff' && <KickoffMode />}
         {tab === 'leaderboard' && <LeaderboardTab />}
+        {tab === 'history' && <HistoryTab />}
       </main>
 
       <footer className="app-footer">
