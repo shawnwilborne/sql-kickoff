@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useRunQuery, type RunOutcome } from '../state/useRunQuery';
 import { useDatabase } from '../db/DatabaseContext';
 import { ResultsTable } from './ResultsTable';
-import { CsvUpload } from './CsvUpload';
 import { SqlEditor } from './SqlEditor';
 
 const DEFAULT_SQL = `-- Your database starts empty.
--- Upload a CSV below, or load the sample data from the Challenges tab, then
--- query it. Tip: start typing for table, column, and keyword suggestions.
+-- Load a saved dataset from the "My Data" tab (or the sample data from the
+-- Challenges tab), then query it. Tip: start typing for table, column, and
+-- keyword suggestions.
 SELECT 'Welcome to SQL Kickoff!' AS message;`;
 
 export function QueryConsole() {
@@ -47,7 +47,6 @@ export function QueryConsole() {
         </div>
       )}
       {outcome?.result && <ResultsTable result={outcome.result} />}
-      <CsvUpload />
     </div>
   );
 }

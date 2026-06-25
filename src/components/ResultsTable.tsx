@@ -27,6 +27,7 @@ export function ResultsTable({ result }: { result: QueryResult }) {
               return (
                 <th key={i} title={type ? `${col} — ${type}` : col} className="col-head">
                   {col}
+                  {type && <span className="col-type-tip">{type}</span>}
                 </th>
               );
             })}

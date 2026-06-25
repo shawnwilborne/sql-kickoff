@@ -403,8 +403,31 @@ textarea:focus {
 }
 .result-table th.col-head {
   cursor: help;
+  position: relative;
   text-decoration: underline dotted rgba(22, 36, 29, 0.3);
   text-underline-offset: 3px;
+}
+/* Immediate type tooltip on column hover. */
+.col-type-tip {
+  display: none;
+  position: absolute;
+  left: 0.5rem;
+  top: calc(100% - 3px);
+  z-index: 6;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(22, 36, 29, 0.3);
+  pointer-events: none;
+}
+.result-table th.col-head:hover .col-type-tip {
+  display: block;
 }
 .result-table tbody tr:nth-child(even) {
   background: #fafcfb;
@@ -1043,6 +1066,59 @@ textarea:focus {
   margin-top: 1.4rem;
   padding-top: 0.8rem;
   border-top: 1px solid var(--border);
+}
+
+/* ---------------- My Data (collections) ---------------- */
+
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.7rem 0 1rem;
+}
+.collection-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.7rem;
+}
+.collection-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.coll-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.coll-head h3 {
+  font-size: 1rem;
+}
+.coll-head code {
+  background: #eef3f0;
+  padding: 0 0.25rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+.coll-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+.coll-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.coll-col {
+  background: #eef3f0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.76rem;
+  color: #244534;
 }
 
 /* ---------------- History ---------------- */

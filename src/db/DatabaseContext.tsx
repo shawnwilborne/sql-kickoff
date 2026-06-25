@@ -41,7 +41,7 @@ function quoteValue(value: string): string {
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const engineRef = useRef<DbEngine | null>(null);
-  const [mode, setMode] = useState<EngineMode>('sqlite');
+  const [mode, setMode] = useState<EngineMode>('postgres');
   const [status, setStatus] = useState<DbStatus>('loading');
   const [error, setError] = useState<string | null>(null);
   const [schema, setSchema] = useState<SchemaMap>({});
@@ -61,7 +61,7 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     (async () => {
       try {
-        const engine = await createEngine('sqlite');
+        const engine = await createEngine('postgres');
         if (cancelled) {
           await engine.close();
           return;

@@ -11,13 +11,15 @@ import { ChallengesTab } from './components/ChallengesTab';
 import { KickoffMode } from './components/KickoffMode';
 import { LeaderboardTab } from './components/LeaderboardTab';
 import { HistoryTab } from './components/HistoryTab';
+import { CollectionsTab } from './components/CollectionsTab';
 import { CheatsheetModal } from './components/CheatsheetModal';
 import { ToastStack } from './components/ToastStack';
 
-type Tab = 'practice' | 'challenges' | 'kickoff' | 'leaderboard' | 'history';
+type Tab = 'practice' | 'data' | 'challenges' | 'kickoff' | 'leaderboard' | 'history';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'practice', label: '🧪 Practice' },
+  { id: 'data', label: '📚 My Data' },
   { id: 'challenges', label: '🎯 Challenges' },
   { id: 'kickoff', label: '⚽ SQL Kickoff' },
   { id: 'leaderboard', label: '🏆 Leaderboard' },
@@ -96,6 +98,7 @@ function Shell() {
 
       <main className="tab-body">
         {tab === 'practice' && <QueryConsole />}
+        {tab === 'data' && <CollectionsTab />}
         {tab === 'challenges' && <ChallengesTab />}
         {tab === 'kickoff' && <KickoffMode />}
         {tab === 'leaderboard' && <LeaderboardTab />}
