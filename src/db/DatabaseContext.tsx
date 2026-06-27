@@ -10,6 +10,7 @@ import {
 import type { DbEngine, EngineMode, QueryResult, SchemaMap } from './types';
 import { SqliteEngine } from './sqlite';
 import { PgliteEngine } from './pglite';
+import { sqlColumnType, sqlLiteral, type ColumnType } from '../util/columnTypes';
 
 type DbStatus = 'loading' | 'ready' | 'error';
 
@@ -22,7 +23,12 @@ interface DatabaseContextValue {
   run: (sql: string) => Promise<QueryResult>;
   switchMode: (mode: EngineMode) => Promise<void>;
   reloadSample: () => Promise<void>;
-  loadCsv: (tableName: string, columns: string[], rows: string[][]) => Promise<void>;
+  loadCsv: (
+    tableName: string,
+    columns: string[],
+    columnTypes: ColumnType[],
+    rows: string[][],
+  ) => Promise<void>;
 }
 
 const DatabaseContext = createContext<DatabaseContextValue | null>(null);
@@ -33,10 +39,6 @@ async function createEngine(mode: EngineMode): Promise<DbEngine> {
 
 function quoteIdent(name: string): string {
   return `"${name.replace(/"/g, '""')}"`;
-}
-
-function quoteValue(value: string): string {
-  return `'${value.replace(/'/g, "''")}'`;
 }
 
 export function DatabaseProvider({ children }: { children: ReactNode }) {
@@ -123,14 +125,20 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
   }, [refreshSchema]);
 
   const loadCsv = useCallback(
-    async (tableName: string, columns: string[], rows: string[][]) => {
+    async (tableName: string, columns: string[], columnTypes: ColumnType[], rows: string[][]) => {
       const engine = engineRef.current;
       if (!engine) throw new Error('The database is still warming up. Try again in a moment.');
+      const typeAt = (i: number): ColumnType => columnTypes[i] ?? 'text';
       const table = quoteIdent(tableName);
       const cols = columns.map(quoteIdent).join(', ');
-      const colDefs = columns.map((c) => `${quoteIdent(c)} TEXT`).join(', ');
+      const colDefs = columns
+        .map((c, i) => `${quoteIdent(c)} ${sqlColumnType(typeAt(i), mode)}`)
+        .join(', ');
       const values = rows
-        .map((row) => `(${columns.map((_, i) => quoteValue(row[i] ?? '')).join(', ')})`)
+        .map(
+          (row) =>
+            `(${columns.map((_, i) => sqlLiteral(row[i] ?? '', typeAt(i), mode)).join(', ')})`,
+        )
         .join(',\n  ');
       let sql = `DROP TABLE IF EXISTS ${table};\nCREATE TABLE ${table} (${colDefs});`;
       if (rows.length > 0) {
@@ -139,7 +147,7 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
       await engine.run(sql);
       await refreshSchema();
     },
-    [refreshSchema],
+    [mode, refreshSchema],
   );
 
   return (

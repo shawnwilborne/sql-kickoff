@@ -1112,6 +1112,9 @@ textarea:focus {
   gap: 0.3rem;
 }
 .coll-col {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   background: #eef3f0;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -1119,6 +1122,30 @@ textarea:focus {
   font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
   font-size: 0.76rem;
   color: #244534;
+}
+.coll-col-type {
+  color: var(--pitch-dark);
+  font-weight: 700;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.upload-preview {
+  margin-bottom: 1rem;
+}
+.upload-preview h3 {
+  font-size: 1.02rem;
+}
+.type-select {
+  padding: 0.25rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  background: #fff;
+}
+.preview-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
 }
 
 /* ---------------- History ---------------- */
