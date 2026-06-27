@@ -1,0 +1,29 @@
+src/styles.css
+  s_10ab0d1c9d7476::t_ba6d970676c678 1115-1117,1126-1149
+src/db/DatabaseContext.tsx
+  s_10ab0d1c9d7476::t_509809062f3b6b 26-31
+  s_10ab0d1c9d7476::t_e4402feb31797c 128,131,134-136,138-141,150
+  s_10ab0d1c9d7476::t_098e29b81bc0ce 13
+src/state/collections.ts
+  s_10ab0d1c9d7476::t_7933714b9b2c4b 2,9,15,18,21-27,37
+src/components/CollectionsTab.tsx
+  s_10ab0d1c9d7476::t_8bcedfc77053a1 7-11,19-26,36,54,62,64,66,69-95,99,101,104,112,133-134,138-139,148-206,234,237
+src/util/columnTypes.ts
+  s_10ab0d1c9d7476::t_194e540e477e3c 1-93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "491fae5dcbd3deeff44563a152dbfe8c32b8ddd2",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
