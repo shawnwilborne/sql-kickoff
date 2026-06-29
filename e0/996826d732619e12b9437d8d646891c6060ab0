@@ -1,0 +1,33 @@
+src/state/collections.ts
+  s_10ab0d1c9d7476::t_ffb99cec7110f8 57-74
+src/components/CollectionEditor.tsx
+  s_796a6b16139e13::t_1396ba2a0096f4 1-213
+src/components/CollectionsTab.tsx
+  s_796a6b16139e13::t_e0a811809228fc 18,38,131-144,244-246
+src/styles.css
+  s_796a6b16139e13::t_43ab8f737b20d3 1208-1307
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.4",
+  "base_commit_sha": "e0996826d732619e12b9437d8d646891c6060ab0",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    },
+    "s_796a6b16139e13": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "adbf49eb-d954-4386-bdf2-18fbe0f99271",
+        "model": "default"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
