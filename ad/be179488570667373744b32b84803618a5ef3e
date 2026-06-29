@@ -1,0 +1,21 @@
+src/components/ResultsTable.tsx
+  s_10ab0d1c9d7476::t_a1fb107c0d24d1 1-2,16-34,36-72,77-82,84,89,91-102,109,120,122,124-160
+src/styles.css
+  s_10ab0d1c9d7476::t_193f1c70a956f8 404,406-429,432-473,475-478,480-487
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "adbe179488570667373744b32b84803618a5ef3e",
+  "prompts": {},
+  "sessions": {
+    "s_10ab0d1c9d7476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0fd0934-836f-48fc-a044-39aa841546a1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "shawnwilborne <wilborneshawn@gmail.com>"
+    }
+  }
+}
