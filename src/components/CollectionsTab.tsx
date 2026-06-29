@@ -15,6 +15,7 @@ import {
   deleteCollection,
   type Collection,
 } from '../state/collections';
+import { CollectionEditor } from './CollectionEditor';
 
 interface Pending {
   name: string;
@@ -34,6 +35,7 @@ export function CollectionsTab() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [pending, setPending] = useState<Pending | null>(null);
+  const [editing, setEditing] = useState<Collection | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -125,6 +127,20 @@ export function CollectionsTab() {
       pushToast({ kind: 'error', text: 'Could not delete: ' + (e instanceof Error ? e.message : String(e)) });
     }
   };
+
+  if (editing) {
+    return (
+      <div className="collections-tab">
+        <CollectionEditor
+          collection={editing}
+          onClose={() => {
+            setEditing(null);
+            void refresh();
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="collections-tab">
@@ -224,6 +240,9 @@ export function CollectionsTab() {
               <div className="coll-actions">
                 <button type="button" onClick={() => void load(c)} disabled={status !== 'ready'}>
                   ↺ Load
+                </button>
+                <button type="button" className="secondary" onClick={() => setEditing(c)}>
+                  ✎ Edit
                 </button>
                 <button type="button" className="secondary" onClick={() => void remove(c)} title="Delete">
                   🗑

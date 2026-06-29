@@ -1205,6 +1205,106 @@ textarea:focus {
   margin-top: 0.8rem;
 }
 
+/* Editable collection grid */
+.ce-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+.ce-toolbar .spacer {
+  flex: 1;
+}
+.ce-title {
+  font-weight: 600;
+}
+.ce-title code {
+  background: #eef3f0;
+  padding: 0 0.3rem;
+  border-radius: 4px;
+}
+.ce-grid {
+  max-height: 62vh;
+  overflow: auto;
+  margin-top: 0.6rem;
+}
+.ce-corner {
+  width: 38px;
+  background: #eef3f0;
+}
+.ce-colhead {
+  background: #eef3f0;
+  vertical-align: top;
+  padding: 0.35rem 0.45rem;
+  min-width: 130px;
+}
+.ce-colname {
+  width: 100%;
+  font-weight: 700;
+  font-size: 0.83rem;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.ce-coltools {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.3rem;
+}
+.ce-typesel {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.74rem;
+  padding: 0.12rem 0.2rem;
+  border-radius: 5px;
+  background: #fff;
+}
+.ce-delcol,
+.ce-delrow {
+  background: transparent;
+  border: none;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-radius: 5px;
+}
+.ce-delcol:hover,
+.ce-delrow:hover {
+  color: var(--danger);
+  background: transparent;
+  filter: none;
+}
+.ce-rownum {
+  width: 38px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.74rem;
+  background: #fafcfb;
+  white-space: nowrap;
+}
+.ce-delrow {
+  opacity: 0;
+}
+.result-table tr:hover .ce-delrow {
+  opacity: 1;
+}
+.ce-cell {
+  cursor: text;
+  max-width: 240px;
+}
+.ce-cell:hover {
+  background: #f4fbf7;
+}
+.ce-cellinput {
+  width: 100%;
+  min-width: 90px;
+  padding: 0.15rem 0.3rem;
+  border: 1px solid var(--pitch-light);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
 /* ---------------- History ---------------- */
 
 .history-head {

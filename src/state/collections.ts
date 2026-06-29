@@ -54,6 +54,24 @@ export async function listCollections(): Promise<Collection[]> {
   return (data ?? []) as Collection[];
 }
 
+/** Save edits (columns, types, rows) back to an existing collection. */
+export async function updateCollection(
+  id: number,
+  data: { columns: string[]; column_types: ColumnType[]; rows: string[][] },
+): Promise<void> {
+  const rows = data.rows.slice(0, MAX_SAVED_ROWS);
+  const { error } = await supabase
+    .from('collections')
+    .update({
+      columns: data.columns,
+      column_types: data.column_types,
+      rows,
+      row_count: data.rows.length,
+    })
+    .eq('id', id);
+  if (error) throw new Error(error.message);
+}
+
 export async function deleteCollection(id: number): Promise<void> {
   const { error } = await supabase.from('collections').delete().eq('id', id);
   if (error) throw new Error(error.message);
