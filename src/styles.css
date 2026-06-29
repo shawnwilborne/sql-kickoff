@@ -401,33 +401,90 @@ textarea:focus {
   position: sticky;
   top: 0;
 }
+/* Supabase-style sortable header with inline type + column menu. */
 .result-table th.col-head {
-  cursor: help;
-  position: relative;
-  text-decoration: underline dotted rgba(22, 36, 29, 0.3);
-  text-underline-offset: 3px;
+  padding: 0;
 }
-/* Immediate type tooltip on column hover. */
-.col-type-tip {
-  display: none;
-  position: absolute;
-  left: 0.5rem;
-  top: calc(100% - 3px);
-  z-index: 6;
-  background: var(--ink);
-  color: #fff;
+.col-head-btn {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  background: transparent;
+  color: var(--ink);
+  border: none;
+  border-radius: 0;
+  padding: 0.45rem 0.7rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.col-head-btn:hover:not(:disabled) {
+  background: #e4ece7;
+  filter: none;
+}
+.col-name {
+  font-weight: 700;
+}
+.col-type-inline {
   font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 0.15rem 0.45rem;
-  border-radius: 6px;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(22, 36, 29, 0.3);
-  pointer-events: none;
+  font-weight: 500;
+  color: var(--muted);
 }
-.result-table th.col-head:hover .col-type-tip {
-  display: block;
+.sort-ind {
+  color: var(--pitch-dark);
+  font-weight: 800;
+}
+.col-chevron {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+  opacity: 0;
+}
+.col-head-btn:hover .col-chevron {
+  opacity: 1;
+}
+.grid-foot {
+  padding: 0.4rem 0.7rem;
+}
+
+/* Column dropdown menu (portaled, fixed). */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+}
+.col-menu {
+  position: fixed;
+  z-index: 71;
+  min-width: 170px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(22, 36, 29, 0.18);
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.col-menu button {
+  background: transparent;
+  color: var(--ink);
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.col-menu button:hover {
+  background: #eef3f0;
+  filter: none;
+}
+.col-menu-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 0.25rem 0.2rem;
 }
 .result-table tbody tr:nth-child(even) {
   background: #fafcfb;
